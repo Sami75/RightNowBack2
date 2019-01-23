@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class Demande extends Model
+class Validation extends Model
 {
     public $guarded = [
         'id',
@@ -15,10 +15,6 @@ class Demande extends Model
     	'status' => 'integer'
     ];
 
-    public $table = 'validation';
-
-    public $with = [
-        'user',
-    ];    
+    public $table = 'validation'; 
 
 }
