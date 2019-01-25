@@ -39,7 +39,6 @@ class UsersEndpoint extends Controller
             'prenom' => $request->prenom,
             'mail' => $request->mail,
             'password' => $request->password,
-            'numRue' => $request->numRue,
             'adresse' => $request->adresse,
             'cdp' => $request->cdp,
             'ville' => $request->ville,
@@ -59,19 +58,16 @@ class UsersEndpoint extends Controller
 
     public function update(Request $request, User $user)
     {
-/*        $user->fillFromRequest();
+        $user->update($request->all());
         $user->saveOrFail();
 
         if (!$user->id) {
             return abort(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-
-        $user = User::find($user->id);
-
         return response()->json([
-            'data' => User::find($user->id)->toArray(),
-        ]);*/
+            User::find($user->id)->toArray(),
+        ]);
     }
 
     public function destroy(User $user)

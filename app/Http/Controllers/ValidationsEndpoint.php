@@ -35,12 +35,12 @@ class ValidationsEndpoint extends Controller
 	public function store(Request $request)
     {
         $validation = new Validation([
-            'status' => 0,
+            'demande_id' => $request->demandeId,
+            'jobbeur_id' => $request->jobeurId,
+            'status' => $request->status,
         ]);
 
         $validation->save();
-
-        $validation = Validation::find($validation->id);
 
         return response()->json([
             Validation::all()->toArray(),
@@ -59,7 +59,7 @@ class ValidationsEndpoint extends Controller
 
 
         $validation = Validation::find($validation->id);
-
+µ
         return response()->json([
             'data' => Validation::find($validation->id)->toArray(),
         ]);*/

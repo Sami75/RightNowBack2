@@ -17,5 +17,6 @@ Route::resource('users', 'UsersEndpoint');
 Route::post('users/login', 'UsersEndpoint@login');
 
 Route::resource('demande', 'DemandesEndpoint');
+Route::get('demande/{demande}', 'DemandesEndpoint@UserAcceptDemande');
 
 Route::resource('validation', 'ValidationsEndpoint');

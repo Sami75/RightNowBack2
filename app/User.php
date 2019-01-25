@@ -21,6 +21,10 @@ class User extends ValidatingModel
         'sexe' => 'string',
         'telephone' => 'required|numeric',
         'password' => 'required|min:6',
+        'noteDemande' => 'integer',
+        'noteJobeur' => 'integer',
+        'annulationDemande' => 'boolean',
+        'annulationJobeur' => 'boolean',
     ];
 
     public $table = 'users';

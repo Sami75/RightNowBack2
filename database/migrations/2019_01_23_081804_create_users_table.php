@@ -19,16 +19,15 @@ class CreateUsersTable extends Migration
             $table->string('prenom');
             $table->string('mail')->unique();
             $table->string('password');
-            $table->integer('numRue')->nullable();
             $table->string('adresse')->nullable();
             $table->integer('cdp')->nullable();
             $table->string('ville')->nullable();
             $table->string('sexe')->nullable();
             $table->integer('telephone');
-            $table->integer('noteDemande');
-            $table->integer('noteJobeur');
-            $table->boolean('annulationDemande');
-            $table->boolean('annulationJobeur');
+            $table->integer('noteDemande')->default(5);
+            $table->integer('noteJobeur')->default(5);
+            $table->boolean('annulationDemande')->default(1);
+            $table->boolean('annulationJobeur')->default(1);
             $table->timestamps();
         });
     }

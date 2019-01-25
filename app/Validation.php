@@ -12,6 +12,8 @@ class Validation extends Model
     ];
 
     public $rules = [
+    	'demande_id' => 'integer',
+    	'jobeur_id' => 'integer',
     	'status' => 'integer'
     ];
 

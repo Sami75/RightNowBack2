@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Demande extends Model
 {
@@ -20,4 +21,5 @@ class Demande extends Model
     ];
 
     public $table = 'demande';
+
 }

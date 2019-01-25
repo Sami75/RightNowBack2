@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\QueryBuilder\QueryBuilder;
-
+use App\User;
+use App\Validation;
 
 class DemandesEndpoint extends Controller 
 {
@@ -15,7 +16,7 @@ class DemandesEndpoint extends Controller
 	public function index()
     {
 
-        $data = Demande::all();
+        $data = Demande::where('valide', '=', 1)->get();
 
         return response()->json([
             $data->toArray(),
@@ -36,7 +37,9 @@ class DemandesEndpoint extends Controller
             'intitule' => $request->intitule,
             'temps' => $request->temps,
             'prix' => $request->prix,
-            
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'user_id' => $request->userid,
         ]);
 
         $demande->save();
@@ -50,31 +53,56 @@ class DemandesEndpoint extends Controller
 
     }
 
-    public function update(Request $request,Demande $demande)
+    public function update(Request $request, Demande $demande)
     {
-/*        $user->fillFromRequest();
-        $user->saveOrFail();
 
-        if (!$user->id) {
+        $demande->update($request->all());
+        $demande->saveOrFail();
+
+        if (!$demande->id) {
             return abort(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
 
-        $user = User::find($user->id);
+        $demande = Demande::find($demande->id);
 
         return response()->json([
-            'data' => User::find($user->id)->toArray(),
-        ]);*/
+            Demande::find($demande->id)->toArray(),
+        ]);
+
     }
 
     public function destroy(Demande $demande)
     {
-
+        
         $demande->delete();
 
-        return abort(Response::HTTP_NO_CONTENT);
+        if(Demande::find($demande->id)) {
+            return response()->json([
+                "La demande n'a pas été supprimée",
+            ]);
+        } else {
+            return response()->json([
+                "La demande a bien été supprimée",
+            ]);
+        }
     }
 
+    public function UserAcceptDemande(Demande $demande) {
+
+        $validation = Validation::where('demande_id', '=', $demande->id)->firstOrFail();
+        $user = User::find($validation->jobbeur_id);
+
+        if(isset($user)) {
+            return response()->json([
+                $user->toArray(),
+            ]);
+        } else {
+            return response()->json([
+                "User not found",
+            ]);
+        }
+    }
     
 }
 

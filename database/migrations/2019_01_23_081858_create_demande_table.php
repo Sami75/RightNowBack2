@@ -19,7 +19,8 @@ class CreateDemandeTable extends Migration
             $table->integer('temps');
             $table->float('prix');
             $table->double('latitude');
-            $table->double('longitude');                        
+            $table->double('longitude'); 
+            $table->boolean('valide')->default(1);                      
             $table->integer('user_id')->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
